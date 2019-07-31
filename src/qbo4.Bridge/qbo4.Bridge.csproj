@@ -234,7 +234,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\qbo4.Bridge.js" />
-    <Content Include="Templates\Samples\qbo4.Bridge.html" />
     <Content Include="readme.md" />
     <None Include="Web.config" />
   </ItemGroup>

@@ -4,32 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>qbo4.Bridge Sample Page</title>
+    <title>Loan Visualization</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="/scripts/qbo4.Bridge.js" defer></script>
-    <script type="text/javascript">
-        //        document.addEventListener("DOMContentLoaded", function () {
-        // google.charts.load('current', { 'packages': ['table', 'charteditor', 'corechart'] });
-        // google.charts.setOnLoadCallback(drawTable);
-
-        //new Promise(function (resolve, reject) {
-        //    google.charts.setOnLoadCallback(function () { resolve(); });
-        //}).then(loadDashboard);
-
-        //        });
-
-        // function loadDashboard() {
+    <script type="application/javascript" src="/Scripts/qbo4.Bridge.js" defer></script>
+    <script type="application/javascript" src="/Scripts/qbo4.Visualization.js" defer></script>
+    <script type="application/javascript">
         document.addEventListener("qbo4.visualization.ready", function () {
-            var db = new qbo4.visualization.dashboard({
+            const db = new qbo4.visualization.dashboard({
                 charts: [{
                     'chartType': 'PieChart',
                     'containerId': 'state_chart',
                     'dimension': 'State',
                     'options': {
                         'height': 500,
-                        'pieHole': 0.4,
+                        'pieHole': 0.2,
                         'pieSliceText': 'value',
-                        'legend': 'right'
+                        'legend': 'left'
                     }
                 }, {
                     'chartType': 'PieChart',
@@ -38,9 +28,7 @@
                     'filters': ['State'],
                     'options': {
                         'pieSliceText': 'value',
-                        'legend': 'right',
-                        'is3D': true,
-                        'sliceVisibilityThreshold': .1
+                        'legend': 'right'
                     }
                 }, {
                     'chartType': 'Table',
@@ -49,22 +37,27 @@
                         'title': 'qbo4 Demo',
                         'legend': 'none',
                         'page': 'enable',
-                        'pageSize': 50,
+                        'pageSize': 8,
                         'allowHtml': true
                     },
                     'view': {
                         columns: [
                             {
                                 label: 'Loan', type: 'string', calc: (table, row) => {
-                                    var data = getRow(table, row);
+                                    const data = qbo4.visualization.getRow(table, row);
                                     return `<a target="_blank" href="/api/loan/${data.LoanID}">${data.Loan}</a>`;
                                 }
                             },
                             3,
-                            4,
+                            {
+                                label: 'Servicer', type: 'string', calc: (table, row) => {
+                                    const data = qbo4.visualization.getRow(table, row);
+                                    return `<a target="_blank" href="/api/organization/${data.ServicerID}">${data.Servicer}</a>`;
+                                }
+                            },
                             {
                                 label: 'Address', type: 'string', calc: (table, row) => {
-                                    var data = getRow(table, row);
+                                    const data = qbo4.visualization.getRow(table, row);
                                     return `<a target="_blank" href="/api/property/${data.PropertyID}">${data.Address}<br/>${data.City}, ${data.State} ${data.PostalCode}</a>`;
                                 }
                             }]
@@ -72,29 +65,16 @@
                     'containerId': 'table_div'
                 }]
             });
-            db.draw('/api/loan/search?displaysize=100');
+            db.draw('loans.json');
             window.db = db;
         });
-
-        function getRow(view, row) {
-            var data = {};
-            for (var i = 0; i < view.getNumberOfColumns(); i++)
-                data[view.getColumnId(i)] = view.getValue(row, i);
-            return data;
-        }
-
     </script>
 </head>
 <body>
     <div>
         <div id="dashboard_div" class="container">
             <div class="row">
-                <h3>Google Table Example</h3>
-            </div>
-            <div class="row">
-                <form class="form-inline">
-                    <input id="url" class="form-control" type="text" value="/api/loan/search" /> <button onclick="loadData(window.db.draw(document.getElementById('url').value)); return false;" class="btn btn-primary">Refresh</button>
-                </form>
+                <h3>Loan Charing Sample</h3>
             </div>
             <div class="row">
                 <div id="state_chart" class="col">State</div>
@@ -105,6 +85,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
