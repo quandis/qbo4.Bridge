@@ -9,13 +9,18 @@
     <script type="application/javascript" src="/Scripts/qbo4.Bridge.js" defer></script>
     <script type="application/javascript" src="/Scripts/qbo4.Visualization.js" defer></script>
     <script type="application/javascript">
+        /*
+        call gvis.ashx/dashboard?reportID=X
+        - each ReportQuery is a chart, renders the dashboard chart JSON for it
+        - url = Report.ResultURL
+        */
         document.addEventListener("qbo4.visualization.ready", function () {
             const db = new qbo4.visualization.dashboard({
                 url: 'loans.json',
                 charts: [{
                     'chartType': 'PieChart',
-                    'containerId': 'state_chart',
-                    'dimension': 'State',
+                    'containerId': 'servicer_chart',
+                    'dimension': 'Servicer',
                     'options': {
                         'height': 500,
                         'pieHole': 0.2,
@@ -24,16 +29,25 @@
                     }
                 }, {
                     'chartType': 'PieChart',
-                    'containerId': 'city_chart',
+                    'containerId': 'state_chart',
+                    'dimension': 'State',
+                    'filters': ['Servicer'],
+                    'options': {
+                        'pieSliceText': 'value',
+                        'legend': 'right'
+                    }
+                }, {
+                    'chartType': 'PieChart',
+                    'containerId': 'status_chart',
                     'dimension': 'City',
-                    'filters': ['State'],
+                    'filters': ['Servicer', 'State'],
                     'options': {
                         'pieSliceText': 'value',
                         'legend': 'right'
                     }
                 }, {
                     'chartType': 'Table',
-                    'filters': ['State', 'City'],
+                    'filters': ['State', 'Servicer', 'City'],
                     'options': {
                         'title': 'qbo4 Demo',
                         'legend': 'none',
@@ -49,7 +63,8 @@
                                     return `<a target="_blank" href="/api/loan/${data.LoanID}">${data.Loan}</a>`;
                                 }
                             },
-                            3,
+                            'UPBAmount',
+                            'Status',
                             {
                                 label: 'Servicer', type: 'string', calc: (table, row) => {
                                     const data = qbo4.visualization.getRow(table, row);
@@ -78,8 +93,9 @@
                 <h3>Loan Charing Sample</h3>
             </div>
             <div class="row">
+                <div id="servicer_chart" class="col">Servicer</div>
                 <div id="state_chart" class="col">State</div>
-                <div id="city_chart" class="col">City</div>
+                <div id="status_chart" class="col">Status</div>
             </div>
             <div class="row">
                 <div id="table_div" class="col">Table</div>
