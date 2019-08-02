@@ -11,6 +11,7 @@
     <script type="application/javascript">
         document.addEventListener("qbo4.visualization.ready", function () {
             const db = new qbo4.visualization.dashboard({
+                url: 'loans.json',
                 charts: [{
                     'chartType': 'PieChart',
                     'containerId': 'state_chart',
@@ -65,7 +66,7 @@
                     'containerId': 'table_div'
                 }]
             });
-            db.draw('loans.json');
+            db.draw();
             window.db = db;
         });
     </script>

@@ -35,10 +35,21 @@
 
 
         set table(dataTable) {
-            this._table = dataTable;
-            this._columns = {};
+            var dashboard = this;
+            dashboard._table = dataTable;
+            dashboard._columns = {};
             for (var i = 0; i < dataTable.getNumberOfColumns(); i++)
-                this._columns[dataTable.getColumnId(i)] = i;
+                dashboard._columns[dataTable.getColumnId(i)] = i;
+
+            // calculate column indexes from column labels
+            dashboard.charts.forEach(chart => {
+                if (chart.view && chart.view.columns) {
+                    chart.view.columns.forEach((col, index, cols) => {
+                        if (typeof (col) === "string")
+                            cols[index] = dashboard._columns[col];
+                    });
+                }
+            });
         }
 
         get table() {
@@ -65,6 +76,10 @@
             return qbo4.visualization.getDataTable(url);
         }
 
+        /* @description Calculate the view to use for a chart.
+         * @param chart {object} Chart to calculate view for. This is where chart.Filters are applied.
+         * @returns {google.visualization.DataView}
+         */ 
         getView(chart) {
             var view = (chart.mapView) ? chart.mapView(this.table) : new google.visualization.DataView(this.table);
             var filters = [];
@@ -105,10 +120,10 @@
 
         renderChart(chart) {
             var dashboard = this;
-            // var aggregation = chart.aggregation;
             var dimensionIndex = (chart.dimensionIndex) ? chart.dimensionIndex : dashboard.columns[chart.dimension];
-            // var allowedFilters = chart.filters;
             var masterView = dashboard.getView(chart);
+
+            // Calcualte a rollup by dimension if required.
             var view = (dimensionIndex)
                 ? google.visualization.data.group(masterView, [dimensionIndex], [{ column: 0, aggregation: chart.aggregation, type: 'number' }])
                 : masterView;
@@ -130,9 +145,10 @@
             wrapper.draw();
         }
 
-        async draw(url) {
+        async draw() {
             await this.loadCharts();
-            this.table = await this.getDataTable(url);
+            var json = await qbo4.get(this.options.url);
+            this.table = new google.visualization.DataTable(json);
             this.render();
         }
     };
@@ -196,6 +212,7 @@
         return data;
     };
 
+    // Only load for pages that have the google API already loaded.
     if (google && google.charts) {
         google.charts.load('current', { 'packages': ['table', 'corechart'] })
             .then(() => { document.dispatchEvent(new Event('qbo4.visualization.ready')); });
