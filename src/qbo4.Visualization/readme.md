@@ -28,7 +28,7 @@ document.addEventListener("qbo4.visualization.ready", function () {
 
 The dashboard class supports native Google charts json, with some extra features thrown in.
 
-### Chart dimension
+### Chart Dimension
 
 Adding a dimension property to a chart tells the dashboard to create a `DataView`, grouping by the `State` column.
 
@@ -46,7 +46,22 @@ Adding a dimension property to a chart tells the dashboard to create a `DataView
 }
 ```
 
-### Filter dimension
+### Chart Pivot
+
+To create a pivot table (using two dimensions):
+
+``` javascript
+{
+    'chartType': 'PieChart',
+    'containerId': 'state_chart',
+    'dimension': 'State',
+    'pivot': 'Status',
+    'options': { ... }
+}
+```
+
+
+### Chart Filter
 
 Adding a filter property to a chart tells the dashboard to filter the dataview whenever a matching filter is set, 
 typically by a user clicking on a chart selection.
@@ -90,8 +105,8 @@ When displaying the loan data in a table, it's useful to create calculated colum
                     return `<a target="_blank" href="/api/loan/${data.LoanID}">${data.Loan}</a>`;
                 }
             },
-            3,
-            4,
+            Status,
+            UPBAmount,
             {
                 label: 'Address', type: 'string', calc: (table, row) => {
                     const data = qbo4.visualization.getRow(table, row);

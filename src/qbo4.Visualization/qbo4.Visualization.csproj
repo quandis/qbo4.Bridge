@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Templates\Samples\Visualization\loans.js" />
     <Content Include="Templates\Samples\Visualization\loans.json" />
     <None Include="Properties\PublishProfiles\localhost.pubxml" />
     <None Include="Web.Debug.config">

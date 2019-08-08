@@ -15,7 +15,13 @@
             this.options = Object.assign({
                 packages: ['table', 'corechart'],
                 filters: {},
-                charts: []
+                charts: [],
+                // Value to use for a label if the underlying data is null or empty.
+                nullLabel: '--',
+                // Array of styles to be removed after the chart has rendered.
+                removeStyles: ['chartLoading'],
+                // Array of styles to be added after the chart has rendered.
+                addStyles: []
             }, options);
 
             this._table = null;
@@ -49,6 +55,36 @@
                             cols[index] = dashboard._columns[col];
                     });
                 }
+                if (chart.dimension && !chart.dimensionIndex) {
+                    chart.dimensionIndex = chart.dimension.split(',');
+                    chart.dimensionIndex.forEach((d, index, dimensions) => {
+                        if (typeof (d) === "string")
+                            dimensions[index] = dashboard._columns[d];
+                    });
+                }
+                if (chart.facts) {
+                    chart.facts.forEach((fact, index, facts) => {
+                        if (typeof (fact) === "string") {
+                            var parts = fact.split(':');
+                            var aggregation = google.visualization.data.count;
+                            switch (parts[0]) {
+                                case 'sum':
+                                    aggregation = google.visualization.data.sum;
+                                    break;
+                                case 'avg':
+                                    aggregation = google.visualization.data.avg;
+                                    break;
+                                case 'max':
+                                    aggregation = google.visualization.data.avg;
+                                    break;
+                                case 'min':
+                                    aggregation = google.visualization.data.avg;
+                                    break;
+                            }
+                            facts[index] = { columnId: parts[1] || parts[0], type: 'number', label: parts[1] || parts[0], aggregation: aggregation };
+                        }
+                    });
+                }
             });
         }
 
@@ -56,12 +92,13 @@
             return this._table;
         }
 
-        /* @description Add a chart to the list of charts in the dashboard.
+        /* @description Add a chart to the list of charts in the dashboard, setting default values if not specified.
          */
         addChart(chart) {
             this.charts.push(Object.assign({
                 aggregation: google.visualization.data.count,
-                filters: []
+                filters: [],
+                nullLabel: this.options.nullLabel
             }, chart));
         }
 
@@ -76,11 +113,11 @@
             return qbo4.visualization.getDataTable(url);
         }
 
-        /* @description Calculate the view to use for a chart.
+        /* @description Filter the dashboard table, returning a view with just the filtered rows.
          * @param chart {object} Chart to calculate view for. This is where chart.Filters are applied.
          * @returns {google.visualization.DataView}
-         */ 
-        getView(chart) {
+         */
+        filter(chart) {
             var view = (chart.mapView) ? chart.mapView(this.table) : new google.visualization.DataView(this.table);
             var filters = [];
             chart.filters.forEach(f => {
@@ -97,52 +134,117 @@
         */
         render() {
             this.charts.forEach(chart => {
-                this.renderChart(chart);
+                try {
+                    this.renderChart(chart);
+                }
+                catch (err) {
+                    console.log(err);
+                }
             });
         }
 
         /* @description Draws each chart impacted by changes to the dashboard.filters.
          * @param filter {array} a list of the filters that apply to the chart.
         */
-        redraw(filter) {
+        redraw(filter, source) {
             var dashboard = this;
             // figure out which charts listen to the filter
-            this.charts.filter(chart => {
-                return chart.filters && chart.filters.includes(filter);
+            dashboard.charts.filter(chart => {
+                return chart.filters && chart.filters.includes(filter) && (source != chart);
             }).forEach(chart => {
                 // clear out downstream filters.
-                if (chart.dimension in dashboard.filters)
+                if (chart.dimension in dashboard.filters && chart.dimension != filter)
                     delete dashboard.filters[chart.dimension];
 
-                this.renderChart(chart);
+                dashboard.renderChart(chart);
             });
         }
 
         renderChart(chart) {
             var dashboard = this;
-            var dimensionIndex = (chart.dimensionIndex) ? chart.dimensionIndex : dashboard.columns[chart.dimension];
-            var masterView = dashboard.getView(chart);
+
+            var filteredView = dashboard.filter(chart);
 
             // Calcualte a rollup by dimension if required.
-            var view = (dimensionIndex)
-                ? google.visualization.data.group(masterView, [dimensionIndex], [{ column: 0, aggregation: chart.aggregation, type: 'number' }])
-                : masterView;
+            var view = (chart.dimensionIndex)
+                ? dashboard.group(filteredView, chart)
+                : filteredView;
 
             var wrapper = new google.visualization.ChartWrapper(Object.assign({ dataTable: view }, chart));
             google.visualization.events.addListener(wrapper, 'select', function () {
                 var data = wrapper.getDataTable();
                 var selection = wrapper.getChart().getSelection()[0];
                 var column = data.getColumnId(0);
-                if (selection) {
-                    dashboard.filters[column] = data.getValue(selection.row, 0);
+                if (selection) {    // add filter
+                    if (selection.row)
+                        dashboard.filters[column] = data.getValue(selection.row, 0);
+                    if (selection.column)
+                        dashboard.filters[chart.pivot] = data.getColumnId(selection.column);
                 }
-                else {
-                    // remove filter
+                else {  // remove filter
                     delete dashboard.filters[column];
+                    if (chart.pivot)
+                        delete dashboard.filters[chart.pivot];
                 }
-                dashboard.redraw(column);
+                dashboard.redraw(column, chart);
             });
-            wrapper.draw();
+            try {
+                wrapper.draw();
+            }
+            catch (err) {
+                console.log(ex);
+            }
+            var el = document.getElementById(chart.containerId);
+            dashboard.options.removeStyles.forEach(style => { el.classList.remove(style); });
+            dashboard.options.addStyles.forEach(style => { el.classList.remove(style); });
+        }
+
+        /* @description Uses google.visualization.data.group to create a rollup based on chart.dimension, and optional pivot based on chart.pivot.
+         * @param view {DataTable} filtered table to group.
+         * @param chart {object} options including chart.dimension, chart.pivot.
+         */
+        group(view, chart) {
+            var viewColumns = chart.dimensionIndex;
+            var groupColumns = [];
+            if (chart.facts) {
+                chart.facts.forEach((fact, index, facts) => {
+                    viewColumns.push(view.getColumnIndex(fact.columnId));
+                    if (!fact.column)
+                        facts[index].column = viewColumns.length - 1;
+                });
+            }
+            var columnCount = viewColumns.length;
+            if (chart.pivot) {
+                var pivotIndex = view.getColumnIndex(chart.pivot);
+                var distinctValues = view.getDistinctValues(view.getColumnIndex(chart.pivot));
+                for (var i = 0; i < distinctValues.length; i++) {
+                    viewColumns.push({
+                        type: 'number',
+                        label: distinctValues[i] || chart.nullLabel,
+                        calc: (function (x) {
+                            return function (table, row) {
+                                return (table.getValue(row, pivotIndex) === x) ? 1 : 0;
+                            };
+                        })(distinctValues[i])
+                    });
+
+                    groupColumns.push({
+                        column: i + columnCount,
+                        type: 'number',
+                        id: distinctValues[i],
+                        label: distinctValues[i] || chart.nullLabel,
+                        aggregation: google.visualization.data.sum
+                    });
+                }
+            } // else if (chart.facts) {
+            if (chart.facts) {
+                groupColumns = groupColumns.concat(chart.facts);
+            } // else
+                //groupColumns.push({ column: 0, aggregation: chart.aggregation, type: 'number', label: 'Total' });
+
+            if (!chart.view || !chart.view.columns)
+                view.setColumns(viewColumns);
+            return google.visualization.data.group(view, [0], groupColumns);
         }
 
         async draw() {
