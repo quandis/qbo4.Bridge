@@ -12,7 +12,7 @@ For example, give a Sql DataTable of loan records, we might want to render:
 - A [bar chart](https://developers.google.com/chart/interactive/docs/gallery/barchart) by Status, and
 - A [table](https://developers.google.com/chart/interactive/docs/gallery/table) of Loans matching the selected State and Status
 
-To load create a dashboard:
+To create a dashboard:
 
 ``` javascript
 document.addEventListener("qbo4.visualization.ready", function () {
@@ -27,6 +27,8 @@ document.addEventListener("qbo4.visualization.ready", function () {
 > The `qbo4.visualization.ready` event is fired after the required google javascript code has been loaded.
 
 The dashboard class supports native Google charts json, with some extra features thrown in.
+
+A [working sample](https://jsfiddle.net/epatrick/9upwjhco/3/) of this code is available on JSFiddle.
 
 ### Chart Dimension
 
@@ -59,6 +61,22 @@ If you wish different facts, include a `facts` array:
     options': { ... }
 }
 ```
+
+Facts can be inferred from simple strings:
+
+``` javascript
+{
+    chartType: 'BarChart',
+    containerId: 'servicerByType_chart',
+    dimension: 'Servicer',
+    pivot: 'LoanType',
+    facts: ['sum:UPBAmount'],
+    options': { ... }
+}
+```
+
+> The common Google Visualization [aggregate functions](https://developers.google.com/chart/interactive/docs/reference#data_aggregation_functions) are supported with this syntax: `{aggregate function}:{columnId}`. 
+> If you need to use a [custom aggreate function](https://developers.google.com/chart/interactive/docs/reference#creating_an_aggregation_function), you must use the 'long format' for facts.
 
 
 ### Chart Pivot
@@ -115,7 +133,11 @@ typically by a user clicking on a chart selection.
 ```
 
 In this case, the City chart will respond to the user clicking on a slice of the State pie. 
-However, the State chart will not respond to a user clicking on a slice of the State pie, because no `filters` property has been set on the State chart.
+However, the State chart will not respond to a user clicking on a slice of the State pie, 
+because no `filters` property has been set on the State chart.
+
+Be careful about creating 2-way filters: a City chart that responds to a State filter makes sense, 
+but a State chart that responds to a City filter is unlikely to be intuitive to a user.
 
 ### Custom column displays
 
@@ -156,3 +178,84 @@ When displaying the loan data in a table, it's useful to create calculated colum
 > In the example above:
 > - the first column renders the `Loan` number, with a hyperlink to the summary page for the `LoanID`.
 > - the last column presents the `Address, City, State` and `PostalCode` in a single cell, hyperlinked to the `Property` summary page.
+
+### Working with SQL Cubes
+
+The examples above work with 'raw data': individual rows are grouped into rollups or pivot tables.
+If your raw data is more than 10,000 rows, browser performance will likely suffer.
+In such situations, roll the data up server-side before delivering to the client.
+For SQL-based queries, the WITH CUBE provides an elegant way of summarizing n-dimensional data.
+
+In the examples below, we assume that the `DataTable` we're working with is based on a SQL CUBE,
+a sample of which is provided in [loans.dashboard.json](loans.dashboard.json).
+Specifically, each dimension includes a `Group` column: `LoanTypeGroup`, `StatusGroup`, `ServicerGroup`.
+
+To render a pie chart by `LoanType`, we use `filters` to tell the chart to:
+
+- Use the detail data for the `LoanType` dimension, and
+- Use only the rollup data for the other dimensions
+
+``` javascript
+charts: [{
+    chartType: 'PieChart',
+    containerId: 'loantype_chart',
+    filters: [
+        { columnId: 'ServicerIDGroup', value: 1 },
+        { columnId: 'LoanTypeGroup', value: 0 },
+        { columnId: 'StatusGroup', value: 1 }
+    ],
+    options: {
+        pieHole: 0.2,
+        pieSliceText: 'value',
+        legend: 'left'
+    },
+    view: {
+        columns: [
+            'LoanType',
+            'LoanCount'
+        ]
+    }
+}]
+```
+
+If you want the chart above to respond to a `Status` filter, the `{ columnId: 'StatusGroup', value: 1}` filter won't work.
+Instead, leverage Google's `test` property with the `qbo4.visualization.cubeFilter` function to determine which rows to filter:
+
+``` javascript
+charts: [{
+    chartType: 'PieChart',
+    containerId: 'loantype_chart',
+    filters: [
+        'Status',
+        { columnId: 'ServicerIDGroup', value: 1 },
+        { columnId: 'LoanTypeGroup', value: 0 },
+        {
+            columnId: 'StatusGroup',
+            test: (value, row, col, table) => qbo4.visualization.cubeFilter(table, row, value, 'Status'),
+        }
+    ],
+    options: {
+        pieHole: 0.2,
+        pieSliceText: 'value',
+        legend: 'left'
+    },
+    view: {
+        columns: [
+            'LoanType',
+            'LoanCount'
+        ]
+    }
+}]
+```
+
+The `qbo4.visualization.cubeFilter` function does the following:
+
+- If there is no `Status` property on `dashboard.filters`, the `defaultValue` will be used,
+- If there is a `Status` property on `dashboard.filters`, the row must have a `Status` column matching the `dashboard.filters['Status']`
+
+``` javascript
+function (table, row, value, filter, defaultValue = 1) {
+    var current = (table.dashboard) ? table.dashboard.filters[filter] : undefined;
+    return (current) ? table.getValue(row, table.getColumnIndex(filter)) === current : value === defaultValue;
+};
+```

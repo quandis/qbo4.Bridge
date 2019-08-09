@@ -52,14 +52,14 @@
                 if (chart.view && chart.view.columns) {
                     chart.view.columns.forEach((col, index, cols) => {
                         if (typeof (col) === "string")
-                            cols[index] = dashboard._columns[col];
+                            cols[index] = dashboard.table.getColumnIndex(col); //dashboard._columns[col];
                     });
                 }
                 if (chart.dimension && !chart.dimensionIndex) {
                     chart.dimensionIndex = chart.dimension.split(',');
                     chart.dimensionIndex.forEach((d, index, dimensions) => {
                         if (typeof (d) === "string")
-                            dimensions[index] = dashboard._columns[d];
+                            dimensions[index] = dashboard.table.getColumnIndex(d); //dashboard._columns[d];
                     });
                 }
                 if (chart.dimension && !chart.facts && chart.pivot === undefined)
@@ -122,9 +122,16 @@
         filter(chart) {
             var view = (chart.mapView) ? chart.mapView(this.table) : new google.visualization.DataView(this.table);
             var filters = [];
-            chart.filters.forEach(f => {
-                if ((f in this.columns) && (f in this.filters))
-                    filters.push({ column: view.getColumnIndex(f), value: this.filters[f] });
+            view.dashboard = this; // enable test functions to access chart properties
+            chart.filters.forEach((f, index, array) => {
+                if (typeof (f) === "string") { // respond to dashboard filters
+                    if ((f in this.columns) && (f in this.filters))
+                        filters.push({ column: view.getColumnIndex(f), value: this.filters[f] });
+                } else { // required filters specified by the chart json
+                    if ((f.column === undefined) && (f.columnId))
+                        array[index].column = view.getColumnIndex(f.columnId);
+                    filters.push(array[index]);
+                }
             });
             if (filters.length > 0)
                 view.setRows(view.getFilteredRows(filters));
@@ -176,10 +183,12 @@
             google.visualization.events.addListener(wrapper, 'select', function () {
                 var data = wrapper.getDataTable();
                 var selection = wrapper.getChart().getSelection()[0];
-                var column = data.getColumnId(0);
+                // var column = (chart.view && chart.view.columns) ? chart.view.columns[0] : data.getColumnId(0);
+                var columnIndex = (chart.view && chart.view.columns) ? chart.view.columns[0] : 0;
+                var column = data.getColumnId(columnIndex);
                 if (selection) {    // add filter
                     if (selection.row)
-                        dashboard.filters[column] = data.getValue(selection.row, 0);
+                        dashboard.filters[column] = data.getValue(selection.row, columnIndex);
                     if (selection.column)
                         dashboard.filters[chart.pivot] = data.getColumnId(selection.column);
                 }
@@ -194,7 +203,7 @@
                 wrapper.draw();
             }
             catch (err) {
-                console.log(ex);
+                console.log(err);
             }
             var el = document.getElementById(chart.containerId);
             dashboard.options.removeStyles.forEach(style => { el.classList.remove(style); });
@@ -219,6 +228,7 @@
             var columnCount = viewColumns.length;
             if (chart.pivot) {
                 var pivotIndex = view.getColumnIndex(chart.pivot);
+                var pivotValueColumn = (chart.pivotValue) ? view.getColumnIndex(chart.pivotValue) : -1;
                 var distinctValues = view.getDistinctValues(view.getColumnIndex(chart.pivot));
                 for (var i = 0; i < distinctValues.length; i++) {
                     viewColumns.push({
@@ -226,7 +236,10 @@
                         label: distinctValues[i] || chart.nullLabel,
                         calc: (function (x) {
                             return function (table, row) {
-                                return (table.getValue(row, pivotIndex) === x) ? 1 : 0;
+                                if (pivotValueColumn === -1)
+                                    return (table.getValue(row, pivotIndex) === x) ? 1 : 0;
+                                else
+                                    return (table.getValue(row, pivotIndex) === x) ? table.getValue(row, pivotValueColumn) : 0;
                             };
                         })(distinctValues[i])
                     });
@@ -315,6 +328,18 @@
         for (var i = 0; i < view.getNumberOfColumns(); i++)
             data[view.getColumnId(i)] = view.getValue(row, i);
         return data;
+    };
+
+    /* @description Sugar for working with SQL CUBE data. Used for the qbo's Dashboard statement output.
+     * @param table {DataTable} Google DataTable with a dashboard property set on it. This is done in the dashboard.filter method call.
+     * @param row {object} DataRow being evaluated by Google's getFilteredRows.
+     * @param value {object} Current value of column being checked.
+     * @param filter {object} Name of filter being compared.
+     * @param defaultValue {object} Compared to value if the filter values are not met.
+     */
+    qbo4.visualization.cubeFilter = function (table, row, value, filter, defaultValue = 1) {
+        var current = (table.dashboard) ? table.dashboard.filters[filter] : undefined;
+        return (current) ? table.getValue(row, table.getColumnIndex(filter)) === current : value === defaultValue;
     };
 
     // Only load for pages that have the google API already loaded.

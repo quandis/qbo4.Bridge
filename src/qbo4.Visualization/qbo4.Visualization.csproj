@@ -112,8 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\qbo4.Visualization.js" />
+    <Content Include="Templates\Samples\Visualization\loans.dashboard.html" />
+    <Content Include="Templates\Samples\Visualization\loans.dashboard.js" />
     <Content Include="Templates\Samples\Visualization\loans.html" />
     <Content Include="readme.md" />
+    <Content Include="Templates\Samples\Visualization\loans.dashboard.json" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
