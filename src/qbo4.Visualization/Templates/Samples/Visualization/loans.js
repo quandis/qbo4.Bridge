@@ -3,79 +3,73 @@
         url: 'loans.json',
         packages: ['bar', 'core', 'table'],
         charts: [{
-            'chartType': 'PieChart',
-            'containerId': 'servicer_chart',
-            'dimension': 'Servicer',
-            'options': {
-                'pieHole': 0.2,
-                'pieSliceText': 'value',
-                'legend': 'left'
+            chartType: 'PieChart',
+            containerId: 'servicer_chart',
+            dimension: 'Servicer',
+            options: {
+                pieHole: 0.2,
+                pieSliceText: 'value',
+                legend: 'left'
             }
         }, {
-            'chartType': 'PieChart',
-            'containerId': 'state_chart',
-            'dimension': 'State',
-            'filters': ['Servicer'],
-            'options': {
-                'pieSliceText': 'value',
+            chartType: 'PieChart',
+            containerId: 'state_chart',
+            dimension: 'State',
+            filters: ['Servicer'],
+            options: {
+                'pieSliceText': 'label',
                 'legend': 'right'
             }
         }, {
-            'chartType': 'PieChart',
-            'containerId': 'upb_chart',
-            'dimension': 'Servicer',
-            'facts': ["sum:UPBAmount"],
-            'filters': ['State'],
-            'options': {
-                'pieSliceText': 'value',
-                'legend': 'right'
+            chartType: 'PieChart',
+            containerId: 'upb_chart',
+            dimension: 'Servicer',
+            facts: ["sum:UPBAmount"],
+            filters: ['State'],
+            options: {
+                pieSliceText: 'value',
+                legend: 'right'
             }
         }, {
-            'chartType': 'Table',
-            'containerId': 'status_chart',
-            'dimension': 'Servicer',
-            'pivot': 'Status',
-            'filters': ['State'],
-            'options': {
-                'page': 'enable',
-                'pageSize': 10,
-                'allowHtml': true
+            chartType: 'Table',
+            containerId: 'status_chart',
+            dimension: 'Servicer',
+            pivot: 'Status',
+            filters: ['State'],
+            options: {
+                page: 'enable',
+                pageSize: 10,
+                allowHtml: true
             },
-            'facts': [
+            facts: [
                 { columnId: 'LoanID', aggregation: google.visualization.data.count, type: 'number', label: 'Loans' },
                 { columnId: 'UPBAmount', aggregation: google.visualization.data.sum, type: 'number', label: 'UPB' }
-            ],
-            'x-view': {
-                columns: [
-                    'Servicer',
-                    'UPBAmount'
-                ]
+            ]
+        }, {
+            chartType: 'BarChart',
+            containerId: 'type_chart',
+            dimension: 'Servicer',
+            filters: ['Servicer', 'State'],
+            pivot: 'LoanType',
+            options: {
+                width: '100%',
+                height: '100%',
+                allowHtml: true,
+                isStacked: true
             }
         }, {
-            'chartType': 'BarChart',
-            'containerId': 'type_chart',
-            'dimension': 'Servicer',
-            'filters': ['Servicer', 'State'],
-            'pivot': 'LoanType',
-            'options': {
-                'width': '100%',
-                'height': '100%',
-                'allowHtml': true,
-                'isStacked': true
-            }
-        }, {
-            'chartType': 'Table',
-            'filters': ['State', 'Servicer', 'LoanType'],
-            'options': {
-                'width': '100%',
-                'height': '100%',
-                'title': 'qbo4 Demo',
-                'legend': 'none',
-                'page': 'enable',
-                'pageSize': 8,
-                'allowHtml': true
+            chartType: 'Table',
+            filters: ['State', 'Servicer', 'LoanType'],
+            options: {
+                width: '100%',
+                height: '100%',
+                title: 'qbo4 Demo',
+                legend: 'none',
+                page: 'enable',
+                pageSize: 8,
+                allowHtml: true
             },
-            'view': {
+            view: {
                 columns: [
                     {
                         label: 'Loan', type: 'string', calc: (table, row) => {
@@ -99,7 +93,7 @@
                         }
                     }]
             },
-            'containerId': 'table_div'
+            containerId: 'table_div'
         }]
     });
     db.draw();
