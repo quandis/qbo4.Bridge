@@ -62,6 +62,8 @@
                             dimensions[index] = dashboard._columns[d];
                     });
                 }
+                if (chart.dimension && !chart.facts && chart.pivot === undefined)
+                    chart.facts = [{ column: 0, aggregation: google.visualization.data.count, type: 'number', label: 'Total' }];
                 if (chart.facts) {
                     chart.facts.forEach((fact, index, facts) => {
                         if (typeof (fact) === "string") {
@@ -208,8 +210,9 @@
             var groupColumns = [];
             if (chart.facts) {
                 chart.facts.forEach((fact, index, facts) => {
-                    viewColumns.push(view.getColumnIndex(fact.columnId));
-                    if (!fact.column)
+                    if (fact.columnId)
+                        viewColumns.push(view.getColumnIndex(fact.columnId));
+                    if (fact.column === undefined)
                         facts[index].column = viewColumns.length - 1;
                 });
             }

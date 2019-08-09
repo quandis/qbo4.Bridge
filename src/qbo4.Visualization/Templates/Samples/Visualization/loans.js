@@ -6,10 +6,6 @@
             'chartType': 'PieChart',
             'containerId': 'servicer_chart',
             'dimension': 'Servicer',
-            'x-view': {
-                'columns': ['Servicer', 'UPBAmount']
-            },
-            'facts': ['count:LoanID'],
             'options': {
                 'pieHole': 0.2,
                 'pieSliceText': 'value',
@@ -20,7 +16,6 @@
             'containerId': 'state_chart',
             'dimension': 'State',
             'filters': ['Servicer'],
-            'facts': ['count:LoanID'],
             'options': {
                 'pieSliceText': 'value',
                 'legend': 'right'
@@ -29,7 +24,7 @@
             'chartType': 'PieChart',
             'containerId': 'upb_chart',
             'dimension': 'Servicer',
-                'facts': ["sum:UPBAmount"],
+            'facts': ["sum:UPBAmount"],
             'filters': ['State'],
             'options': {
                 'pieSliceText': 'value',
@@ -49,7 +44,6 @@
             'facts': [
                 { columnId: 'LoanID', aggregation: google.visualization.data.count, type: 'number', label: 'Loans' },
                 { columnId: 'UPBAmount', aggregation: google.visualization.data.sum, type: 'number', label: 'UPB' }
-                // "count:LoanID"
             ],
             'x-view': {
                 columns: [
