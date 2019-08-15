@@ -343,8 +343,12 @@
     };
 
     // Only load for pages that have the google API already loaded.
-    if (google && google.charts) {
-        google.charts.load('current', { 'packages': ['table', 'corechart'] })
-            .then(() => { document.dispatchEvent(new Event('qbo4.visualization.ready')); });
+    if (window.google && google.charts) {
+        google.charts.load('current', { 'packages': ['table', 'corechart'] });
+        google.charts.setOnLoadCallback(function () {
+            var vready = document.createEvent('Event');
+            vready.initEvent('qbo4.visualization.ready', true, true);
+            document.dispatchEvent(vready);
+        });
     }
 })();
