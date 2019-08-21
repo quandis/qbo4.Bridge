@@ -33,6 +33,9 @@
             // Set up charts, ensuring defaults are set.
             this.charts = [];
             this.options.charts.forEach(chart => { this.addChart(chart); });
+            this.containerId = this.options.containderID || this.charts[0].containerId;
+            if (this.containerId)
+                this.container = document.getElementById(this.containerId);
         }
 
         get columns() {
@@ -198,6 +201,9 @@
                         delete dashboard.filters[chart.pivot];
                 }
                 dashboard.redraw(column, chart);
+                var filterEvent = document.createEvent('Event', { filter: dashboard.filters });
+                filterEvent.initEvent('filtered', true, true);
+                dashboard.container.dispatchEvent(filterEvent);
             });
             try {
                 wrapper.draw();

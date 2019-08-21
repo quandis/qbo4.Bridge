@@ -102,6 +102,11 @@ document.addEventListener("qbo4.visualization.ready", function () {
         }]
     });
     db.draw();
+    db.container.addEventListener('filtered', function(e) {
+      console.log(db.filters);
+      var panel = qbo3.getObject('search');
+      panel.refresh(db.filters);
+    });
     window.db = db;
 });
         ]]>
@@ -131,22 +136,23 @@ document.addEventListener("qbo4.visualization.ready", function () {
             <i class="pull-right icon-question-sign drop-button" data-trigger="help"></i>
           </ul>
         </div>
-        <div>
-          <div id="dashboard_div" class="container-fluid">
-            <div class="row-fluid">
-              <h3>SQL Cube Charting Samples</h3>
-            </div>
-            <div class="row-fluid">
-              <div id="servicer_chart" class="span6 chartLoading">Servicer</div>
-              <div id="type_chart" class="span6 chartLoading">Type</div>
-            </div>
-            <div class="row-fluid">
-              <div id="pivot_chart" class="span6 chartLoading">Pivot Data</div>
-            </div>
-            <div class="row-fluid" >
-              <div id="table_chart" class="span12 chartLoading">Raw Data</div>
-            </div>
+        <div id="dashboard_div" class="container-fluid">
+          <div class="row-fluid">
+            <h3>SQL Cube Charting Samples</h3>
           </div>
+          <div class="row-fluid">
+            <div id="servicer_chart" class="span6 chartLoading">Servicer</div>
+            <div id="type_chart" class="span6 chartLoading">Type</div>
+          </div>
+          <div class="row-fluid">
+            <div id="pivot_chart" class="span6 chartLoading">Pivot Data</div>
+          </div>
+          <div class="row-fluid" >
+            <div id="table_chart" class="span12 chartLoading">Raw Data</div>
+          </div>
+        </div>
+        <div id="search" class="container-fluid" data-behavior="ObjectBind" data-objectbind-options="{{ 'class':'qbo3.LoanObject', 'method':'Search', 'render':false, 'listen':['search'], 'cacheKey':'Loan-Home-Search' }}">
+          <p>Loan data here...</p>
         </div>
       </body>
     </html>
