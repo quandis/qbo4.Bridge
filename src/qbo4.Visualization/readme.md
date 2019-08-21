@@ -259,3 +259,18 @@ function (table, row, value, filter, defaultValue = 1) {
     return (current) ? table.getValue(row, table.getColumnIndex(filter)) === current : value === defaultValue;
 };
 ```
+
+## Connecting a qbo4.Visualization.Dashboard to a qbo3.ObjectBind panel
+
+Add an event listener to the dashboard.container:
+
+``` javascript
+db.container.addEventListener('filtered', function(e) {
+    console.log(db.filters);
+    var panel = qbo3.getObject('search');
+    panel.refresh(db.filters);
+});
+```
+
+> In the example above, the code simply passes the array of filters to the `ObjectBind.refresh` method. 
+> You may need to manipulate the object being passed to refresh to handle your specific use cases.
