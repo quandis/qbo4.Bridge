@@ -190,7 +190,7 @@
                 var columnIndex = (chart.view && chart.view.columns) ? chart.view.columns[0] : 0;
                 var column = data.getColumnId(columnIndex);
                 if (selection) {    // add filter
-                    if (selection.row)
+                    if (selection.row || selection.row === 0)
                         dashboard.filters[column] = data.getValue(selection.row, columnIndex);
                     if (selection.column)
                         dashboard.filters[chart.pivot] = data.getColumnId(selection.column);
