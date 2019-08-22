@@ -260,7 +260,9 @@ function (table, row, value, filter, defaultValue = 1) {
 };
 ```
 
-## Connecting a qbo4.Visualization.Dashboard to a qbo3.ObjectBind panel
+## qbo3 Integration
+
+### Connecting a qbo4.Visualization.Dashboard to a qbo3.ObjectBind panel
 
 Add an event listener to the dashboard.container:
 
@@ -274,3 +276,8 @@ db.container.addEventListener('filtered', function(e) {
 
 > In the example above, the code simply passes the array of filters to the `ObjectBind.refresh` method. 
 > You may need to manipulate the object being passed to refresh to handle your specific use cases.
+
+### When to use a Google Table visualization
+
+Consider using a Table visualization instead of a qbo3 search panel if you are doing a single-page application that does
+not need to leverage the sugar provided by qbo3's standard UI (labels, option menus, etc.).
