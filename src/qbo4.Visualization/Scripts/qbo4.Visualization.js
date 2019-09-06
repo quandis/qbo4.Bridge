@@ -14,6 +14,7 @@
             // Establish defaults
             this.options = Object.assign({
                 packages: ['table', 'corechart'],
+                mapsApiKey: '',
                 filters: {},
                 charts: [],
                 // Value to use for a label if the underlying data is null or empty.

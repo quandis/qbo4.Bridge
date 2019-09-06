@@ -117,9 +117,12 @@
     <Content Include="Templates\Samples\Visualization\loans.html" />
     <Content Include="readme.md" />
     <Content Include="Templates\Samples\Visualization\loans.dashboard.json" />
+    <Content Include="Templates\Samples\Visualization\properties.html" />
+    <Content Include="Templates\Samples\Visualization\properties.js" />
     <Content Include="Templates\Samples\Visualization\Visualization.xslt">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Templates\Samples\Visualization\properties.json" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
