@@ -8,7 +8,7 @@
     <owners>Quandis, Inc.</owners>
     <projectUrl>https://github.com/quandis/qbo4.Http</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description></description>
+    <description>Microsoft.AspNet middleware to bridge calls to qbo3</description>
     <releaseNotes>Initial package build.</releaseNotes>
     <copyright>Copyright 2018 by Quandis, Inc.</copyright>
     <tags>qbo4 qbo4.Common</tags>
