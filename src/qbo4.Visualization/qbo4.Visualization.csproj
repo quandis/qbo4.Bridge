@@ -120,6 +120,7 @@
     <Content Include="Templates\Samples\Visualization\Visualization.xslt">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="qbo4.Visualization.nuspec" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
