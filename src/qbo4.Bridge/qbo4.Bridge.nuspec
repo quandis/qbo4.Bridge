@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>qbo4.Bridge</id>
+    <version>1.0.0-beta-1</version>
+    <title>qbo4.Bridge</title>
+    <authors>epatrick@quandis.com</authors>
+    <owners>Quandis, Inc.</owners>
+    <projectUrl>https://github.com/quandis/qbo4.Http</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Microsoft.AspNet middleware to bridge calls to qbo3</description>
+    <releaseNotes>Initial package build.</releaseNotes>
+    <copyright>Copyright 2018 by Quandis, Inc.</copyright>
+    <tags>qbo4 qbo4.Common</tags>
+  </metadata>
+</package>
