@@ -117,7 +117,7 @@
     <Content Include="Templates\Samples\Visualization\loans.dashboard.html" />
     <Content Include="Templates\Samples\Visualization\loans.dashboard.js" />
     <Content Include="Templates\Samples\Visualization\loans.html" />
-    <Content Include="readme.md" />
+    <None Include="readme.md" />
     <Content Include="Templates\Samples\Visualization\loans.dashboard.json" />
     <Content Include="Templates\Samples\Visualization\properties.html" />
     <Content Include="Templates\Samples\Visualization\properties.js" />
@@ -127,6 +127,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="qbo4.Visualization.nuspec" />
+    <Content Include="Templates\Samples\Visualization\county.json" />
+    <Content Include="Templates\Samples\Visualization\properties.json" />
+    <Content Include="Templates\Samples\Visualization\state.json" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

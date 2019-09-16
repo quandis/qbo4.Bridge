@@ -33,7 +33,7 @@
                 view: {
                     columns: [
                         'State',
-                        'YTDIncrease'
+                        'Increase'
                     ]
                 }
             },
