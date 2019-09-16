@@ -36,6 +36,15 @@
                         'YTDIncrease'
                     ]
                 }
+            },
+            {
+                chartType: 'GeoChart',
+                containerId: 'geo_chart3',
+                options: {
+                    region: 'PR', // United States
+                    dataMode: 'regions',
+                    colorAxis: { colors: ['green', 'yellow', 'red'] }
+                }
             }
         ]
     });

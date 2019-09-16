@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Properties Visualization</title>
+    <title>State Visualization</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="application/javascript" src="/Scripts/qbo4.Bridge.js" defer></script>
     <script type="application/javascript" src="/Scripts/qbo4.Visualization.js" defer></script>
-    <script type="application/javascript" src="properties.js" defer></script>
+    <script type="application/javascript" src="state.js" defer></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBA0IJ16EhbYrofmpILRPfaAf9dOM1-PP8" defer></script>
     <style>
         .chartLoading {
@@ -36,14 +36,13 @@
             padding: 5px !important;
             border-width: 1px 1px 1px 1px !important;
         }
-        
     </style>
 </head>
 <body>
     <div>
         <div id="dashboard_div" class="container">
             <div class="row">
-                <h3>Foreclosure Inventory Report</h3>
+                <h3>Foreclosure Inventory Report By State - PA</h3>
             </div>
             <div class="row">
                 <div class="col-sm-6">
@@ -52,17 +51,12 @@
                             <div id="geo_chart2" style="height:500px" class="col chartLoading">State</div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div id="geo_chart3" style="height:300px" class="col chartLoading">PR</div>        
-                        </div>
-                    </div>
                 </div>
                 <div class="col-sm-6">
                     <div id="2" class="chartLoading">Table</div>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
 </body>
 </html>

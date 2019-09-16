@@ -112,6 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\qbo4.Visualization.js" />
+    <Content Include="Templates\Samples\Visualization\county.html" />
+    <Content Include="Templates\Samples\Visualization\county.js" />
     <Content Include="Templates\Samples\Visualization\loans.dashboard.html" />
     <Content Include="Templates\Samples\Visualization\loans.dashboard.js" />
     <Content Include="Templates\Samples\Visualization\loans.html" />
@@ -119,10 +121,14 @@
     <Content Include="Templates\Samples\Visualization\loans.dashboard.json" />
     <Content Include="Templates\Samples\Visualization\properties.html" />
     <Content Include="Templates\Samples\Visualization\properties.js" />
+    <Content Include="Templates\Samples\Visualization\state.html" />
+    <Content Include="Templates\Samples\Visualization\state.js" />
     <Content Include="Templates\Samples\Visualization\Visualization.xslt">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Templates\Samples\Visualization\properties.json" />
+    <Content Include="Templates\Samples\Visualization\state.json" />
+    <Content Include="Templates\Samples\Visualization\county.json" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

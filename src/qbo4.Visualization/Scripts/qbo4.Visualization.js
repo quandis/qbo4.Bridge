@@ -13,7 +13,7 @@
         constructor(options) {
             // Establish defaults
             this.options = Object.assign({
-                packages: ['table', 'corechart'],
+                packages: ['table', 'corechart', 'map'],
                 mapsApiKey: '',
                 filters: {},
                 charts: [],
@@ -351,7 +351,7 @@
 
     // Only load for pages that have the google API already loaded.
     if (window.google && google.charts) {
-        google.charts.load('current', { 'packages': ['table', 'corechart'] });
+        google.charts.load('current', { 'packages': ['table', 'corechart', 'map'] });
         google.charts.setOnLoadCallback(function () {
             var vready = document.createEvent('Event');
             vready.initEvent('qbo4.visualization.ready', true, true);
