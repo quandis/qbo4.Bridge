@@ -18,19 +18,17 @@ namespace qbo4.Listener
 
             server.Start();
             IsRunning = true;
-            Console.WriteLine("Listening...");
-            // Note: The GetContext method blocks while waiting for a request. 
-            // Obtain a response object.
             while (server.IsListening && (server != null))
             {
                 try
                 {
                     var context = await server.GetContextAsync();
+                    // don't await this; keep listening for requests
                     Process(context);
                 }
-                catch (System.ObjectDisposedException)
+                catch (System.Net.HttpListenerException ex)
                 {
-                    // this is okay
+                    // ignore errors from calls to Stop().
                 }
             }
         }
@@ -50,13 +48,7 @@ namespace qbo4.Listener
         public static void Stop()
         {
             IsRunning = false;
-            // server.Close();
             server.Stop();
-        }
-
-        private static void ListenerCallback(IAsyncResult ar)
-        {
-            Console.WriteLine("request processed");
         }
     }
 }
