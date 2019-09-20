@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>State Visualization</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="application/javascript" src="/Scripts/qbo4.Bridge.js" defer></script>
+    <script type="application/javascript" src="/Scripts/qbo4.Visualization.js" defer></script>
+    <script type="application/javascript" src="state.js" defer></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBA0IJ16EhbYrofmpILRPfaAf9dOM1-PP8" defer></script>
+    <style>
+        .chartLoading {
+            background: transparent;
+            background-image: url("https://digitalsynopsis.com/wp-content/uploads/2016/06/loading-animations-preloader-gifs-ui-ux-effects-18.gif");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+    <style>
+        .cssHeaderRow {
+        }
+
+        .cssTableRow {
+        }
+
+        .cssHeaderCell {
+            font-weight: bold;
+            padding: 5px !important;
+            border-width: 1px 1px 1px 1px !important;
+        }
+
+        .cssTableCell {
+            padding: 5px !important;
+            border-width: 1px 1px 1px 1px !important;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="dashboard_div" class="container">
+            <div class="row">
+                <h3>Foreclosure Inventory Report By State - PA</h3>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div id="geo_chart2" style="height:500px" class="col chartLoading">State</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div id="2" class="chartLoading">Table</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

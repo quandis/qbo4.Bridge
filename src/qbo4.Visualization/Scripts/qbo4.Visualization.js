@@ -13,7 +13,8 @@
         constructor(options) {
             // Establish defaults
             this.options = Object.assign({
-                packages: ['table', 'corechart'],
+                packages: ['table', 'corechart', 'map'],
+                mapsApiKey: '',
                 filters: {},
                 charts: [],
                 // Value to use for a label if the underlying data is null or empty.
@@ -190,7 +191,7 @@
                 var columnIndex = (chart.view && chart.view.columns) ? chart.view.columns[0] : 0;
                 var column = data.getColumnId(columnIndex);
                 if (selection) {    // add filter
-                    if (selection.row)
+                    if (selection.row || selection.row === 0)
                         dashboard.filters[column] = data.getValue(selection.row, columnIndex);
                     if (selection.column)
                         dashboard.filters[chart.pivot] = data.getColumnId(selection.column);
@@ -350,7 +351,7 @@
 
     // Only load for pages that have the google API already loaded.
     if (window.google && google.charts) {
-        google.charts.load('current', { 'packages': ['table', 'corechart'] });
+        google.charts.load('current', { 'packages': ['table', 'corechart', 'map'] });
         google.charts.setOnLoadCallback(function () {
             var vready = document.createEvent('Event');
             vready.initEvent('qbo4.visualization.ready', true, true);

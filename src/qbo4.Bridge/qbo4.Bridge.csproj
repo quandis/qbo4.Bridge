@@ -235,6 +235,7 @@
   <ItemGroup>
     <Content Include="Scripts\qbo4.Bridge.js" />
     <Content Include="readme.md" />
+    <Content Include="qbo4.Bridge.nuspec" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,441 @@
+{
+  "cols": [
+    {
+      "id": "County",
+      "label": "County",
+      "type": "string"
+    },
+    {
+      "id": "Increase",
+      "label": "Increase",
+      "type": "number"
+    },
+    {
+      "id": "Marker",
+      "label": "Marker",
+      "type": "string"
+    }
+  ],
+  "rows": [
+    {
+      "c": [
+        { "v": "York PA" },
+        { "v": 745 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Allegheny PA" },
+        { "v": 274 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Montgomery PA" },
+        { "v": 246 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Lancaster PA" },
+        { "v": 231 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Lebanon PA" },
+        { "v": 205 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Luzerne PA" },
+        { "v": 203 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Philadelphia PA" },
+        { "v": 165 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Berks PA" },
+        { "v": 143 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Beaver PA" },
+        { "v": 102 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Bucks PA" },
+        { "v": 98 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Lackawanna PA" },
+        { "v": 96 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Perry PA" },
+        { "v": 92 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Montour PA" },
+        { "v": 90 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Delaware PA" },
+        { "v": 84 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Lehigh PA" },
+        { "v": 78 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Schuylkill PA" },
+        { "v": 74 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Columbia PA" },
+        { "v": 72 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Monroe PA" },
+        { "v": 65 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Union PA" },
+        { "v": 63 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Northampton PA" },
+        { "v": 60 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Erie PA" },
+        { "v": 58 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Snyder PA" },
+        { "v": 54 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Washington PA" },
+        { "v": 48 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Mifflin PA" },
+        { "v": 42 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Pike PA" },
+        { "v": 38 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Westmoreland PA" },
+        { "v": 38 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Chester PA" },
+        { "v": 33 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Bradford PA" },
+        { "v": 32 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Adams PA" },
+        { "v": 30 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Lawrence PA" },
+        { "v": 30 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Butler PA" },
+        { "v": 23 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Armstrong PA" },
+        { "v": 22 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Crawford PA" },
+        { "v": 21 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Juniata PA" },
+        { "v": 20 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Clearfield PA" },
+        { "v": 19 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Cumberland PA" },
+        { "v": 17 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Cambria PA" },
+        { "v": 15 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Northumberland PA" },
+        { "v": 15 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Centre PA" },
+        { "v": 10 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "McKean PA" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Mercer PA" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Wayne PA" },
+        { "v": 6 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Huntingdon PA" },
+        { "v": 6 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Indiana PA" },
+        { "v": 3 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Jefferson PA" },
+        { "v": 3 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Dauphin PA" },
+        { "v": 3 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Fayette PA" },
+        { "v": 3 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Cameron PA" },
+        { "v": 3 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Carbon PA" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Clinton PA" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Clarion PA" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Bedford PA" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Venango PA" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Warren PA" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Somerset PA" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Lycoming PA" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Wyoming PA" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Blair PA" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Franklin PA" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Fulton PA" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    }
+  ]
+}
