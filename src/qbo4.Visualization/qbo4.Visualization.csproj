@@ -130,6 +130,7 @@
     <Content Include="Templates\Samples\Visualization\county.json" />
     <Content Include="Templates\Samples\Visualization\properties.json" />
     <Content Include="Templates\Samples\Visualization\state.json" />
+    <Content Include="Templates\Samples\Visualization\properties.full.json" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
