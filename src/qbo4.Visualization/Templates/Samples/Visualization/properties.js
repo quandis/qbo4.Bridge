@@ -33,7 +33,7 @@
                 view: {
                     columns: [
                         'State',
-                        'Increase'
+                        'Growth'
                     ]
                 }
             },
@@ -87,6 +87,87 @@
             }
         ]
     });
+
     db2.draw();
     window.db = db2;
+
+    const db3 = new qbo4.visualization.dashboard({
+        url: 'state.json',
+        packages: ['bar', 'core', 'table', 'geochart', 'map'],
+        mapsApiKey: 'AIzaSyBA0IJ16EhbYrofmpILRPfaAf9dOM1-PP8',
+        charts: [
+            {
+                chartType: 'Map',
+                containerId: 'pr_chart',
+                options: {
+                    showTooltip: true,
+                    zoomLevel: 7,
+                    mapType: "normal",
+                    showInfoWindow: false,
+                    useMapTypeControl: false,
+                    icons: {
+                        green: {
+                            normal: url + '|19660c|'
+                        },
+                        greenyellow: {
+                            normal: url + '|b6de28|'
+                        },
+                        yellow: {
+                            normal: url + '|f7f70f|'
+                        },
+                        orange: {
+                            normal: url + '|e8b407|'
+                        },
+                        red: {
+                            normal: url + '|e80707|'
+                        }
+                    }
+                }
+            }
+        ]
+    });
+
+    db3.draw();
+    window.db = db3;
+
+
+    const db4 = new qbo4.visualization.dashboard({
+        url: 'state.IL.json',
+        packages: ['bar', 'core', 'table', 'geochart', 'map'],
+        mapsApiKey: 'AIzaSyBA0IJ16EhbYrofmpILRPfaAf9dOM1-PP8',
+        charts: [
+            {
+                chartType: 'Map',
+                containerId: 'pr_chart',
+                options: {
+                    showTooltip: true,
+                    zoomLevel: 7,
+                    mapType: "normal",
+                    showInfoWindow: false,
+                    useMapTypeControl: false,
+                    icons: {
+                        green: {
+                            normal: url + '|19660c|'
+                        },
+                        greenyellow: {
+                            normal: url + '|b6de28|'
+                        },
+                        yellow: {
+                            normal: url + '|f7f70f|'
+                        },
+                        orange: {
+                            normal: url + '|e8b407|'
+                        },
+                        red: {
+                            normal: url + '|e80707|'
+                        }
+                    }
+                }
+            }
+        ]
+    });
+
+    db4.draw();
+    window.db = db4;
+
 });

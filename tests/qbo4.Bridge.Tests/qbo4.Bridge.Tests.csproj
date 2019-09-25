@@ -195,10 +195,10 @@
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="qbo.Application, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\qbo3.Application.3.0.7-CI-20190711-222152\lib\net472\qbo.Application.dll</HintPath>
+      <HintPath>..\..\packages\qbo3.Application.3.0.7-CI-20190920-190322\lib\net472\qbo.Application.dll</HintPath>
     </Reference>
     <Reference Include="qbo.Exception, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\qbo3.Exception.3.0.7-CI-20190402-133858\lib\net472\qbo.Exception.dll</HintPath>
+      <HintPath>..\..\packages\qbo3.Exception.3.0.7-CI-20190918-202457\lib\net472\qbo.Exception.dll</HintPath>
     </Reference>
     <Reference Include="qbo4.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\qbo4.Common.1.0.1-CI-20190430-133828\lib\netstandard2.0\qbo4.Common.dll</HintPath>

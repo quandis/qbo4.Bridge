@@ -1,0 +1,609 @@
+{
+  "cols": [
+    {
+      "id": "County",
+      "label": "County",
+      "type": "string"
+    },
+    {
+      "id": "Increase",
+      "label": "Increase",
+      "type": "number"
+    },
+    {
+      "id": "Marker",
+      "label": "Marker",
+      "type": "string"
+    }
+  ],
+  "rows": [
+    {
+      "c": [
+        { "v": "Cook IL" },
+        { "v": 670 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Du Page IL" },
+        { "v": 130 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "McHenry IL" },
+        { "v": 129 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Sangamon IL" },
+        { "v": 121 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Lake IL" },
+        { "v": 108 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Peoria IL" },
+        { "v": 90 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Will IL" },
+        { "v": 74 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Franklin IL" },
+        { "v": 73 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Saline IL" },
+        { "v": 72 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Madison IL" },
+        { "v": 69 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "La Salle IL" },
+        { "v": 63 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Clinton IL" },
+        { "v": 57 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Kendall IL" },
+        { "v": 54 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Effingham IL" },
+        { "v": 53 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Wayne IL" },
+        { "v": 52 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Tazewell IL" },
+        { "v": 45 },
+        { "v": "green" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Marion IL" },
+        { "v": 45 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Jackson IL" },
+        { "v": 44 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Fulton IL" },
+        { "v": 41 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Saint Clair IL" },
+        { "v": 39 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Whiteside IL" },
+        { "v": 39 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "McLean IL" },
+        { "v": 36 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Adams IL" },
+        { "v": 36 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Bond IL" },
+        { "v": 30 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Stark IL" },
+        { "v": 30 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Warren IL" },
+        { "v": 27 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Jefferson IL" },
+        { "v": 25 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Hamilton IL" },
+        { "v": 23 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Jo Daviess IL" },
+        { "v": 21 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Champaign IL" },
+        { "v": 21 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Crawford IL" },
+        { "v": 21 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Macoupin IL" },
+        { "v": 20 },
+        { "v": "greenyellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Winnebago IL" },
+        { "v": 20 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Ogle IL" },
+        { "v": 19 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Richland IL" },
+        { "v": 18 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Montgomery IL" },
+        { "v": 18 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Cumberland IL" },
+        { "v": 18 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Edgar IL" },
+        { "v": 18 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Ford IL" },
+        { "v": 18 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "White IL" },
+        { "v": 17 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Gallatin IL" },
+        { "v": 15 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Henry IL" },
+        { "v": 13 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Boone IL" },
+        { "v": 13 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Iroquois IL" },
+        { "v": 12 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Knox IL" },
+        { "v": 12 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Stephenson IL" },
+        { "v": 12 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Williamson IL" },
+        { "v": 12 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "De Kalb IL" },
+        { "v": 10 },
+        { "v": "yellow" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Coles IL" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Christian IL" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Jersey IL" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Kankakee IL" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Livingston IL" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Massac IL" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Monroe IL" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Union IL" },
+        { "v": 9 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Macon IL" },
+        { "v": 8 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Logan IL" },
+        { "v": 6 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Marshall IL" },
+        { "v": 6 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Mason IL" },
+        { "v": 6 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Putnam IL" },
+        { "v": 6 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Hardin IL" },
+        { "v": 6 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "DeKalb IL" },
+        { "v": 5 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Douglas IL" },
+        { "v": 3 },
+        { "v": "orange" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Bureau IL" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Henderson IL" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Clay IL" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Kane IL" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Rock Island IL" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Piatt IL" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "McDonough IL" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Lee IL" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Vermilion IL" },
+        { "v": 3 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Wabash IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Mercer IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Pope IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Perry IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Morgan IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Moultrie IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Scott IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Grundy IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Cass IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Clark IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    },
+    {
+      "c": [
+        { "v": "Alexander IL" },
+        { "v": 0 },
+        { "v": "red" }
+      ]
+    }
+  ]
+}

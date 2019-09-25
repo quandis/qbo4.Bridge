@@ -131,6 +131,7 @@
     <Content Include="Templates\Samples\Visualization\properties.json" />
     <Content Include="Templates\Samples\Visualization\state.json" />
     <Content Include="Templates\Samples\Visualization\properties.full.json" />
+    <Content Include="Templates\Samples\Visualization\state.IL.json" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
