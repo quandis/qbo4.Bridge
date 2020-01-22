@@ -13,8 +13,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\qbo4.Listener\qbo4.Listener.csproj" />
-  </ItemGroup>
-
 </Project>
