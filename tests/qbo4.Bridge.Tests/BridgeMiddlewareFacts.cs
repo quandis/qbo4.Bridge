@@ -39,7 +39,6 @@ namespace qbo4.Bridge.Tests
             var headers = message.Headers;
             var result = await message.Content.ReadAsStringAsync();
             // Assert.Equal("bar", result);
-
         }
     }
 

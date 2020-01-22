@@ -22,6 +22,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qbo4.Listener", "src\qbo4.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qbo4.Listener.Tests", "tests\qbo4.Listener.Tests\qbo4.Listener.Tests.csproj", "{75540D87-69F6-4633-B73E-B1FEAD825C17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qbo4.Bridge.Website", "qbo4.Bridge.Website\qbo4.Bridge.Website.csproj", "{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{75540D87-69F6-4633-B73E-B1FEAD825C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75540D87-69F6-4633-B73E-B1FEAD825C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75540D87-69F6-4633-B73E-B1FEAD825C17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{32980F41-6DBD-4F12-A4BE-4D1E865CD26B} = {EA48E50C-771F-4974-A27F-D3A37DB469A8}
 		{DDB7C469-2031-46F7-AB55-CC97BA38AE29} = {EA48E50C-771F-4974-A27F-D3A37DB469A8}
 		{75540D87-69F6-4633-B73E-B1FEAD825C17} = {1B5FCAB6-D621-4166-A7DB-0D37BB665EA4}
+		{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97} = {1B5FCAB6-D621-4166-A7DB-0D37BB665EA4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09207C3F-D9BB-45B5-BAA7-A0834A2EA1EA}
