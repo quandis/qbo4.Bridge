@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.539
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qbo4.Bridge", "src\qbo4.Bridge\qbo4.Bridge.csproj", "{6D9C1A4B-5F13-49A7-8B70-54C692C31BDD}"
 EndProject
@@ -13,10 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qbo4.Bridge.Tests", "tests\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4DDAB0A2-A92A-4804-8FBC-CC429C9F9591}"
 	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
 		nuget.config = nuget.config
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qbo4.Bridge.Website", "qbo4.Bridge.Website\qbo4.Bridge.Website.csproj", "{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qbo4.Visualization", "src\qbo4.Visualization\qbo4.Visualization.csproj", "{32980F41-6DBD-4F12-A4BE-4D1E865CD26B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +39,10 @@ Global
 		{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32980F41-6DBD-4F12-A4BE-4D1E865CD26B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32980F41-6DBD-4F12-A4BE-4D1E865CD26B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32980F41-6DBD-4F12-A4BE-4D1E865CD26B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32980F41-6DBD-4F12-A4BE-4D1E865CD26B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +51,7 @@ Global
 		{6D9C1A4B-5F13-49A7-8B70-54C692C31BDD} = {EA48E50C-771F-4974-A27F-D3A37DB469A8}
 		{185A2BBD-F16B-458D-92A5-659CAB0FBF87} = {1B5FCAB6-D621-4166-A7DB-0D37BB665EA4}
 		{3C5BD29B-4E7A-4C9B-AE97-F7325001EC97} = {1B5FCAB6-D621-4166-A7DB-0D37BB665EA4}
+		{32980F41-6DBD-4F12-A4BE-4D1E865CD26B} = {EA48E50C-771F-4974-A27F-D3A37DB469A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09207C3F-D9BB-45B5-BAA7-A0834A2EA1EA}
