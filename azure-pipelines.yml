@@ -34,7 +34,7 @@ steps:
   displayName: 'NuGet pack'
   inputs:
     command: pack
-    packagesToPack: '**/src/**/*.csproj'
+    packagesToPack: '**/src/**/*.csproj;!*.listener*.csproj'
     versioningScheme: byPrereleaseNumber
     majorVersion: '1'
     minorVersion: '0'
