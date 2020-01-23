@@ -30,8 +30,6 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-
-steps:
 - task: NuGetCommand@2
   displayName: 'NuGet pack'
   inputs:
