@@ -262,6 +262,59 @@ function (table, row, value, filter, defaultValue = 1) {
 
 ## qbo3 Integration
 
+### Fetching data formatted for Google Visualizations
+
+Source data is often formatted as 'simple' JSON arrays, rather than Google Visualization objects. E.g.:
+
+``` javascript
+[
+  { FisrtName: 'Adam', LastName: 'Ant' },
+  { FisrtName: 'Bobby', LastName: 'Banana' }
+]
+```
+
+instead of:
+
+``` javascript
+{
+  "cols": [
+    { "id": "FistName", "label": "FirstName", "type": "string" },
+    { "id": "LastName", "label": "LastName", "type": "string" }
+  ],
+  "rows": [
+    { "c": [ { "v": "Adam" }, { "v": "Ant" } ] },
+    { "c": [ { "v": "Bobby" }, { "v": "Banana" } ] }
+  ]
+}
+```
+
+Such data must be formatted for Google Visualizations. The `qbo3.Report.Google` Nuget package provides a `Gvis.ashx` 
+handler that does this for you:
+
+```
+/Report/GVis.ashx/{ClassName}/{Operation}?{Parameters}
+```
+
+will convert and `DataSet` or `DataReader` to Google Visualization JSON.
+
+From the client side, you can instead convert such data with:
+
+``` javascript
+qbo4.visualization.getDataTable(url)
+```
+
+For example:
+
+``` javascript
+document.addEventListener("qbo4.visualization.ready", function () {
+    const db = new qbo4.visualization.dashboard({
+        charts: [ ... array of charts here ... ]
+    });
+    // fetch the data to draw the chart with
+    db.draw(qbo4.visualization.getDataTable('api/loan/search'));
+});
+```
+
 ### Connecting a qbo4.Visualization.Dashboard to a qbo3.ObjectBind panel
 
 Add an event listener to the dashboard.container:
