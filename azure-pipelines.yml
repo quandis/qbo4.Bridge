@@ -10,6 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
+- group: Release-Candidate
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
@@ -30,16 +31,17 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet pack'
-  inputs: 
+
+steps:
+- task: NuGetCommand@2
+  displayName: 'NuGet pack'
+  inputs:
     command: pack
-    nobuild: true
-    packagesToPack: '**/src/**/*.csproj'
-    versioningScheme: 'byPrereleaseNumber'
-    majorVersion: '1'
-    minorVersion: '0'
-    patchVersion: '1'
+    packagesToPack: '$(ProjectPath)'
+    versioningScheme: byPrereleaseNumber
+    majorVersion: '$(major)'
+    minorVersion: '$(minor)'
+    patchVersion: '$(patch)'
 
 - task: NuGetCommand@2
   displayName: 'NuGet push'
