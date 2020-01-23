@@ -34,7 +34,7 @@ steps:
   displayName: 'NuGet pack'
   inputs:
     command: pack
-    packagesToPack: '**/src/**/*.csproj;!*.listener*.csproj'
+    packagesToPack: '**/src/**/*.csproj;!**/qbo4.Listener.csproj'
     versioningScheme: byPrereleaseNumber
     majorVersion: '1'
     minorVersion: '0'
