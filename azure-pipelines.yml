@@ -10,7 +10,6 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-- group: Release-Candidate
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
@@ -39,9 +38,9 @@ steps:
     command: pack
     packagesToPack: '$(ProjectPath)'
     versioningScheme: byPrereleaseNumber
-    majorVersion: '$(major)'
-    minorVersion: '$(minor)'
-    patchVersion: '$(patch)'
+    majorVersion: '1'
+    minorVersion: '0'
+    patchVersion: '1'
 
 - task: NuGetCommand@2
   displayName: 'NuGet push'
