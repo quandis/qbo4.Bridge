@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using qbo4.Bridge.Extensions;
 using qbo4.Bridge.Tests.Extensions;
+using qbo4.Extensions.Testing;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -26,13 +27,13 @@ namespace qbo4.Bridge.Tests
             _client = _server.CreateClient();
         }
 
-        [Fact]
+        [EnvironmentFact("qbo3:ConnectionStrings:qbo.Default")]
         public void Compiles()
         {
             Assert.True(true);
         }
 
-        [Fact]
+        [EnvironmentFact("qbo3:ConnectionStrings:qbo.Default")]
         public async Task BindsToRoutes()
         {
             var message = await _client.GetAsync("/api/matrix/search?output=xml");

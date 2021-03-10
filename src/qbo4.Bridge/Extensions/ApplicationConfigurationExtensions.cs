@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using qbo4.Configuration.Extensions;
+using qbo4.Extensions.DependencyInjection;
 using System;
 
 namespace qbo4.Bridge.Extensions
