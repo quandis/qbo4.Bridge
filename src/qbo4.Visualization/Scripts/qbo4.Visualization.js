@@ -246,7 +246,7 @@
                                 if (pivotValueColumn === -1)
                                     return (table.getValue(row, pivotIndex) === x) ? 1 : 0;
                                 else
-                                    return (table.getValue(row, pivotIndex) === x) ? table.getValue(row, pivotValueColumn) : 0;
+                                    return (table.getValue(row, pivotIndex) === x) ? table.getValue(row, pivotValueColumn) || 0 : 0;
                             };
                         })(distinctValues[i])
                     });
