@@ -81,10 +81,13 @@
                                     aggregation = google.visualization.data.avg;
                                     break;
                                 case 'max':
-                                    aggregation = google.visualization.data.avg;
+                                    aggregation = google.visualization.data.max;
                                     break;
                                 case 'min':
-                                    aggregation = google.visualization.data.avg;
+                                    aggregation = google.visualization.data.min;
+                                    break;
+                                case 'month':
+                                    aggregation = google.visualization.data.month;
                                     break;
                             }
                             facts[index] = { columnId: parts[1] || parts[0], type: 'number', label: parts[1] || parts[0], aggregation: aggregation };
