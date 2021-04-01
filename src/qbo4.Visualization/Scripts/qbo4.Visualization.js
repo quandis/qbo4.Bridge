@@ -86,6 +86,15 @@
                                 case 'min':
                                     aggregation = google.visualization.data.min;
                                     break;
+                                case 'count':
+                                    aggregation = google.visualization.data.count;
+                                    break;
+                                case 'group':
+                                    aggregation = google.visualization.data.group;
+                                    break;
+                                case 'join':
+                                    aggregation = google.visualization.data.join;
+                                    break;
                                 case 'month':
                                     aggregation = google.visualization.data.month;
                                     break;
@@ -205,8 +214,7 @@
                         delete dashboard.filters[chart.pivot];
                 }
                 dashboard.redraw(column, chart);
-                var filterEvent = document.createEvent('Event', { filter: dashboard.filters });
-                filterEvent.initEvent('filtered', true, true);
+                const filterEvent = new CustomEvent('filtered', { detail: dashboard.filters });
                 dashboard.container.dispatchEvent(filterEvent);
             });
             try {
