@@ -179,7 +179,7 @@ When displaying the loan data in a table, it's useful to create calculated colum
 > - the first column renders the `Loan` number, with a hyperlink to the summary page for the `LoanID`.
 > - the last column presents the `Address, City, State` and `PostalCode` in a single cell, hyperlinked to the `Property` summary page.
 
-### Working with SQL Cubes
+## Working with SQL Cubes
 
 The examples above work with 'raw data': individual rows are grouped into rollups or pivot tables.
 If your raw data is more than 10,000 rows, browser performance will likely suffer.
@@ -187,7 +187,7 @@ In such situations, roll the data up server-side before delivering to the client
 For SQL-based queries, the WITH CUBE provides an elegant way of summarizing n-dimensional data.
 
 In the examples below, we assume that the `DataTable` we're working with is based on a SQL CUBE,
-a sample of which is provided in [loans.dashboard.json](loans.dashboard.json).
+a sample of which is provided in [loans.dashboard.json](https://qbo4-demo.s3.amazonaws.com/demo/visualization/loan/loans.dashboard.json).
 Specifically, each dimension includes a `Group` column: `LoanTypeGroup`, `StatusGroup`, `ServicerGroup`.
 
 To render a pie chart by `LoanType`, we use `filters` to tell the chart to:
@@ -259,6 +259,8 @@ function (table, row, value, filter, defaultValue = 1) {
     return (current) ? table.getValue(row, table.getColumnIndex(filter)) === current : value === defaultValue;
 };
 ```
+
+Check out a working [cube-based sample](https://jsfiddle.net/epatrick/k0hb7jew/17/).
 
 ## qbo3 Integration
 

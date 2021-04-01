@@ -24,7 +24,9 @@
                 // Array of styles to be added after the chart has rendered.
                 addStyles: [],
                 // Name of filter event to raise. Override this if you need to listen to multiple dashboards. Defaults to 'filtered'.
-                filteredEvent: 'filtered'
+                filteredEvent: 'filtered',
+                // Determines if the filtered event should bubble
+                bubbleFilters: true
             }, options);
 
             this._table = null;
@@ -216,7 +218,7 @@
                         delete dashboard.filters[chart.pivot];
                 }
                 dashboard.redraw(column, chart);
-                const filterEvent = new CustomEvent(dashboard.options.filteredEvent, { detail: dashboard.filters });
+                const filterEvent = new CustomEvent(dashboard.options.filteredEvent, { bubbles: dashboard.options.bubbleFilters, detail: dashboard.filters });
                 dashboard.container.dispatchEvent(filterEvent);
             });
             try {
@@ -359,7 +361,7 @@
      */
     qbo4.visualization.cubeFilter = function (table, row, value, filter, defaultValue = 1) {
         var current = (table.dashboard) ? table.dashboard.filters[filter] : undefined;
-        return (current) ? table.getValue(row, table.getColumnIndex(filter)) === current : value === defaultValue;
+        return (current !== undefined) ? table.getValue(row, table.getColumnIndex(filter)) === current : value === defaultValue;
     };
 
     // Only load for pages that have the google API already loaded.
