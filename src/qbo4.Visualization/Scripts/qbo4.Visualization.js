@@ -22,7 +22,9 @@
                 // Array of styles to be removed after the chart has rendered.
                 removeStyles: ['chartLoading'],
                 // Array of styles to be added after the chart has rendered.
-                addStyles: []
+                addStyles: [],
+                // Name of filter event to raise. Override this if you need to listen to multiple dashboards. Defaults to 'filtered'.
+                filteredEvent: 'filtered'
             }, options);
 
             this._table = null;
@@ -205,7 +207,7 @@
                 if (selection) {    // add filter
                     if (selection.row || selection.row === 0)
                         dashboard.filters[column] = data.getValue(selection.row, columnIndex);
-                    if (selection.column)
+                    if (selection.column && chart.pivot)
                         dashboard.filters[chart.pivot] = data.getColumnId(selection.column);
                 }
                 else {  // remove filter
@@ -214,7 +216,7 @@
                         delete dashboard.filters[chart.pivot];
                 }
                 dashboard.redraw(column, chart);
-                const filterEvent = new CustomEvent('filtered', { detail: dashboard.filters });
+                const filterEvent = new CustomEvent(dashboard.options.filteredEvent, { detail: dashboard.filters });
                 dashboard.container.dispatchEvent(filterEvent);
             });
             try {
