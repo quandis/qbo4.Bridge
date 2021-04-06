@@ -261,7 +261,7 @@
                                 if (pivotValueColumn === -1)
                                     return (table.getValue(row, pivotIndex) === x) ? 1 : 0;
                                 else
-                                    return (table.getValue(row, pivotIndex) === x) ? table.getValue(row, pivotValueColumn) || 0 : 0;
+                                    return (table.getValue(row, pivotIndex) === x) ? table.getValue(row, pivotValueColumn) || null : 0;
                             };
                         })(distinctValues[i])
                     });
@@ -278,7 +278,7 @@
             if (chart.facts) {
                 groupColumns = groupColumns.concat(chart.facts);
             } // else
-                //groupColumns.push({ column: 0, aggregation: chart.aggregation, type: 'number', label: 'Total' });
+            //groupColumns.push({ column: 0, aggregation: chart.aggregation, type: 'number', label: 'Total' });
 
             if (!chart.view || !chart.view.columns)
                 view.setColumns(viewColumns);
@@ -361,7 +361,10 @@
      */
     qbo4.visualization.cubeFilter = function (table, row, value, filter, defaultValue = 1) {
         var current = (table.dashboard) ? table.dashboard.filters[filter] : undefined;
-        return (current !== undefined) ? table.getValue(row, table.getColumnIndex(filter)) === current : value === defaultValue;
+
+        return (current !== undefined)
+            ? ((table.getValue(row, table.getColumnIndex(filter)) === current) && (value !== defaultValue))
+            : value === defaultValue;
     };
 
     // Only load for pages that have the google API already loaded.
