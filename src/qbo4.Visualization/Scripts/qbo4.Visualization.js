@@ -209,6 +209,8 @@
                 if (selection) {    // add filter
                     if (selection.row || selection.row === 0)
                         dashboard.filters[column] = data.getValue(selection.row, columnIndex);
+                    //this was added to address Google visualization not selecting columns in table charts
+                    if (chart.pivot && selection.column == null && !isNaN(event.toElement.cellIndex)) selection.column = event.toElement.cellIndex;
                     if (selection.column && chart.pivot)
                         dashboard.filters[chart.pivot] = data.getColumnId(selection.column);
                 }
