@@ -158,6 +158,30 @@
             return view;
         }
 
+        /**
+         * @description Set pie slice colors based on chart ValueColors option and data values cross check
+         * @param chart {object} 
+         * sets the charts slices colors
+         */
+        sliceColors(chart, view) {
+            var sliceValues = [];
+            for (var i = 0; i < view.getNumberOfRows(); i++) {
+                if (sliceValues.indexOf(view.getValue(i, 0)) == -1 && view.getValue(i, 0) != null && view.getValue(i, 0).length > 0) {
+                    sliceValues[sliceValues.length] = view.getValue(i, 0);
+                }
+            }
+            var slicesString = "";
+            for (var s in sliceValues) {
+                for (var c in chart.options.valueColors) {
+                    if (c == sliceValues[s]) {
+                        slicesString += (slicesString.length > 0 ? ", " : "");
+                        slicesString += ' "' + s + '": { "color": "' + eval('chart.options.valueColors["' + c + '"]') + '" }';
+                    }
+                }
+            }
+            chart.options.slices = JSON.parse("{ " + slicesString + " }");
+        }
+
         /* @description Renders each chart in the dashboard based on the datatable
          * @param dataTable {google.visualization.DataTable} to render charts with.
         */
@@ -198,6 +222,9 @@
             var view = (chart.dimensionIndex)
                 ? dashboard.group(filteredView, chart)
                 : filteredView;
+
+            if (chart.options.valueColors)
+                dashboard.sliceColors(chart, view);
 
             var wrapper = new google.visualization.ChartWrapper(Object.assign({ dataTable: view }, chart));
             google.visualization.events.addListener(wrapper, 'select', function () {
