@@ -117,10 +117,14 @@
         /* @description Add a chart to the list of charts in the dashboard, setting default values if not specified.
          */
         addChart(chart) {
+            chart.options.vAxis = { 'textStyle': { 'fontSize': '10' } };
+            chart.options.hAxis = { 'textStyle': { 'fontSize': '10' } };
+            chart.options.tooltip = { 'textStyle': { 'fontSize': '10' } };
             this.charts.push(Object.assign({
                 aggregation: google.visualization.data.count,
                 filters: [],
-                nullLabel: this.options.nullLabel
+                nullLabel: this.options.nullLabel,
+                options: qbo4.visualization.styles
             }, chart));
         }
 
@@ -145,8 +149,12 @@
             view.dashboard = this; // enable test functions to access chart properties
             chart.filters.forEach((f, index, array) => {
                 if (typeof (f) === "string") { // respond to dashboard filters
-                    if ((f in this.columns) && (f in this.filters))
-                        filters.push({ column: view.getColumnIndex(f), value: this.filters[f] });
+                    if ((f in this.columns) && (f in this.filters)) {
+                        let viewFilter = (Array.isArray(this.filters[f]))
+                            ? { column: view.getColumnIndex(f), test: (value, rowId, columnId, datatable) => { return Array.from(this.filters[f]).includes(value); } }
+                            : { column: view.getColumnIndex(f), value: this.filters[f] }
+                        filters.push(viewFilter);
+                    }
                 } else { // required filters specified by the chart json
                     if ((f.column === undefined) && (f.columnId))
                         array[index].column = view.getColumnIndex(f.columnId);
@@ -156,6 +164,29 @@
             if (filters.length > 0)
                 view.setRows(view.getFilteredRows(filters));
             return view;
+        }
+
+        /* @description Set pie slice colors based on chart ValueColors option and data values cross check
+         * @param chart {object} 
+         * sets the charts slices colors
+         */
+        sliceColors(chart, view) {
+            var sliceValues = [];
+            for (var i = 0; i < view.getNumberOfRows(); i++) {
+                if (sliceValues.indexOf(view.getValue(i, 0)) == -1 && view.getValue(i, 0) != null && view.getValue(i, 0).length > 0) {
+                    sliceValues[sliceValues.length] = view.getValue(i, 0);
+                }
+            }
+            var slicesString = "";
+            for (var s in sliceValues) {
+                for (var c in chart.options.valueColors) {
+                    if (c == sliceValues[s]) {
+                        slicesString += (slicesString.length > 0 ? ", " : "");
+                        slicesString += ' "' + s + '": { "color": "' + eval('chart.options.valueColors["' + c + '"]') + '" }';
+                    }
+                }
+            }
+            chart.options.slices = JSON.parse("{ " + slicesString + " }");
         }
 
         /* @description Renders each chart in the dashboard based on the datatable
@@ -198,6 +229,9 @@
             var view = (chart.dimensionIndex)
                 ? dashboard.group(filteredView, chart)
                 : filteredView;
+
+            if (chart.options.valueColors)
+                dashboard.sliceColors(chart, view);
 
             var wrapper = new google.visualization.ChartWrapper(Object.assign({ dataTable: view }, chart));
             google.visualization.events.addListener(wrapper, 'select', function () {
@@ -368,6 +402,56 @@
             ? ((table.getValue(row, table.getColumnIndex(filter)) === current) && (value !== defaultValue))
             : value === defaultValue;
     };
+
+    /* @description Sugar for detecting css to inject as javascript
+     */
+
+    const ss = Array.from(document.styleSheets).filter(ss => { try { return ss.cssRules } catch { return false } });
+    function getStyles(selector) {
+        return ss.flatMap(s => Array.from(s.cssRules)).filter(r => r.selectorText == selector);
+    };
+    function getStyle(selector) {
+        return getStyles(selector)[0];
+    };
+    function getStyleJson(selector) {
+        let json = {};
+        getStyles(selector).forEach(style => {
+            let keys = style.styleMap.keys();
+            let values = style.styleMap.values();
+            let key = keys.next();
+            let value = values.next();
+            while (!key.done) {
+                json[key.value] = value.value.join();
+                key = keys.next();
+                value = values.next();
+            }
+        });
+        return json;
+    }
+
+    qbo4.visualization.styles = {
+        vAxis: {
+            textStyle: {
+                fontSize: '9px'
+            }
+        },
+        xAxis: {
+            textStyle: {
+                fontSize: '9px'
+            }
+        },
+        tooltip: {
+            textStyle: {
+                fontSize: '9px'
+            }
+        }
+    };
+    getStyles('.chart-axis').forEach(s => {
+        if (s.style['fontSize'] !== '') {
+            qbo4.visualization.styles.vAxis.fontSize = s.style['fontSize'];
+            qbo4.visualization.styles.xAxis.fontSize = s.style['fontSize'];
+        }
+    })
 
     // Only load for pages that have the google API already loaded.
     if (window.google && google.charts) {
