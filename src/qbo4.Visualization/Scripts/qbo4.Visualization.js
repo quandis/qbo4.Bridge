@@ -398,6 +398,8 @@
     qbo4.visualization.cubeFilter = function (table, row, value, filter, defaultValue = 1) {
         var current = (table.dashboard) ? table.dashboard.filters[filter] : undefined;
 
+        if (Array.isArray(current))
+            return Array.from(current).includes(table.getValue(row, table.getColumnIndex(filter)));
         return (current !== undefined)
             ? ((table.getValue(row, table.getColumnIndex(filter)) === current) && (value !== defaultValue))
             : value === defaultValue;
