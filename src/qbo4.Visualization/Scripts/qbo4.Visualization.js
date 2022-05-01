@@ -38,7 +38,7 @@
             // Set up charts, ensuring defaults are set.
             this.charts = [];
             this.options.charts.forEach(chart => { this.addChart(chart); });
-            this.containerId = this.options.containderID || this.charts[0].containerId;
+            this.containerId = this.options.containerId || this.charts[0].containerId;
             if (this.containerId)
                 this.container = document.getElementById(this.containerId);
         }
@@ -206,14 +206,17 @@
         /* @description Draws each chart impacted by changes to the dashboard.filters.
          * @param filter {array} a list of the filters that apply to the chart.
         */
-        redraw(filter, source) {
+        redraw(filters, source) {
             var dashboard = this;
+            filters = Array.from(filters);
             // figure out which charts listen to the filter
             dashboard.charts.filter(chart => {
-                return chart.filters && chart.filters.includes(filter) && (source != chart);
+                // return chart.filters && chart.filters.includes(filter) && (source != chart);
+                return chart.filters && (source != chart) && chart.filters.some(f => filters.includes(f));
             }).forEach(chart => {
                 // clear out downstream filters.
-                if (chart.dimension in dashboard.filters && chart.dimension != filter)
+                // if (chart.dimension in dashboard.filters && chart.dimension != filter)
+                if (chart.dimension in dashboard.filters && !filters.includes(chart.dimension))
                     delete dashboard.filters[chart.dimension];
 
                 dashboard.renderChart(chart);
