@@ -151,7 +151,7 @@
                 if (typeof (f) === "string") { // respond to dashboard filters
                     if ((f in this.columns) && (f in this.filters)) {
                         let viewFilter = (Array.isArray(this.filters[f]))
-                            ? { column: view.getColumnIndex(f), test: (value, rowId, columnId, datatable) => { return Array.from(this.filters[f]).includes(value); } }
+                            ? { column: view.getColumnIndex(f), test: (value, rowId, columnId, datatable) => { return Array.from(this.filters[f]).includes(value?.toString()); } }
                             : { column: view.getColumnIndex(f), value: this.filters[f] }
                         filters.push(viewFilter);
                     }
@@ -244,8 +244,28 @@
                 var columnIndex = (chart.view && chart.view.columns) ? chart.view.columns[0] : 0;
                 var column = data.getColumnId(columnIndex);
                 if (selection) {    // add filter
-                    if (selection.row || selection.row === 0)
-                        dashboard.filters[column] = data.getValue(selection.row, columnIndex);
+                    if (selection.row || selection.row === 0) {
+                        var columnFilterValue = data.getValue(selection.row, columnIndex);
+                        dashboard.filters[column] = columnFilterValue;
+                        //Selection is sometimes text (comma included), try to get ID of record instead (E.g. Servicer=ACME, Inc. whereas ServicerID=2)
+                        if (dashboard.columns[column + "ID"] != undefined && !chart.mapView) {
+                            //Filter down to selected row
+                            var columnFilterIndex = dashboard.columns[column];
+                            var view = new google.visualization.DataView(dashboard.table);
+                            var filters = [];
+                            let viewFilter = { column: columnFilterIndex, test: (value, rowId, columnId, datatable) => { return value == columnFilterValue; } }
+                            filters.push(viewFilter);
+                            if (filters.length > 0) {
+                                var rowIndex = view.getFilteredRows(filters);
+                                var idColumn = dashboard.columns[column + "ID"];
+                                if (rowIndex) {
+                                    dashboard.filters[column + "ID"] = view.getValue(rowIndex[0], idColumn);
+                                    //Remove the text filter so that it does not potentially conflict with the ID filter
+                                    delete dashboard.filters[column];
+                                }
+                            }
+                        }
+                    }
                     //this was added to address Google visualization not selecting columns in table charts
                     if (chart.pivot && selection.column == null && !isNaN(event.toElement.cellIndex)) selection.column = event.toElement.cellIndex;
                     if (selection.column && chart.pivot)
