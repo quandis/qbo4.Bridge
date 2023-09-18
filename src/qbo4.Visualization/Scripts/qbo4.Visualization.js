@@ -158,6 +158,14 @@
                 } else { // required filters specified by the chart json
                     if ((f.column === undefined) && (f.columnId))
                         array[index].column = view.getColumnIndex(f.columnId);
+                    //Ensure the appropriate group filtering is set based on the filters getting invoked.
+                    if (array[index].hasOwnProperty("value") && f.columnId.substring(f.columnId.length - 5, f.columnId.length) == "Group") {
+                        //Check if "{filter}Group" filter present
+                        if (this.filters.hasOwnProperty(f.columnId.substring(0, f.columnId.length - 5)))
+                            array[index].value = 0;
+                        else
+                            array[index].value = 1;
+                    }
                     filters.push(array[index]);
                 }
             });
