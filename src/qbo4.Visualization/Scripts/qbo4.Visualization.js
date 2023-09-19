@@ -146,6 +146,7 @@
         filter(chart) {
             var view = (chart.mapView) ? chart.mapView(this.table) : new google.visualization.DataView(this.table);
             var filters = [];
+            let localChart = chart;
             view.dashboard = this; // enable test functions to access chart properties
             chart.filters.forEach((f, index, array) => {
                 if (typeof (f) === "string") { // respond to dashboard filters
@@ -160,8 +161,14 @@
                         array[index].column = view.getColumnIndex(f.columnId);
                     //Ensure the appropriate group filtering is set based on the filters getting invoked.
                     if (array[index].hasOwnProperty("value") && f.columnId.substring(f.columnId.length - 5, f.columnId.length) == "Group") {
+                        //Remove trailing "Group" or "IDGroup"
+                        var dimensionPivotLengthCutoff = (f.columnId.indexOf("IDGroup") > 0 ? 7 : 5);
                         //Check if "{filter}Group" filter present
-                        if (this.filters.hasOwnProperty(f.columnId.substring(0, f.columnId.length - 5)))
+                        //Or if Dimension or Pivot is set to this Group
+                        if (    this.filters.hasOwnProperty(f.columnId.substring(0, f.columnId.length - 5))
+                            || f.columnId.substring(0, f.columnId.length - dimensionPivotLengthCutoff) == localChart.dimension
+                            || (localChart.hasOwnProperty("pivot") && f.columnId.substring(0, f.columnId.length - dimensionPivotLengthCutoff) == localChart.pivot)
+                        )
                             array[index].value = 0;
                         else
                             array[index].value = 1;
