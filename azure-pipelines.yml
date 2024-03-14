@@ -23,12 +23,31 @@ steps:
     feedsToUse: config
     nugetConfigPath: 'NuGet.config'
 
+- task: SonarQubePrepare@5
+  continueOnError: true
+  inputs:    
+    SonarQube: 'sonar2.quandis.io qbo4'
+    scannerMode: 'MSBuild'    
+    projectKey: 'qbo4_qbo4.Bridge_b17b321f-5a06-40dc-94b5-7432e3e13a34'
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+
+- task: SonarQubeAnalyze@5
+  continueOnError: true
+  # Fix for SonarQube 10.x vs 9.x, JAVA_HOME_17_X64 vs default JAVA_HOME_11_X64
+  inputs:    
+    jdkversion: 'JAVA_HOME_17_X64'
+
+- task: SonarQubePublish@5
+  continueOnError: true
+  inputs:
+    pollingTimeoutSec: '300'
 
 - task: NuGetCommand@2
   displayName: 'NuGet pack'
