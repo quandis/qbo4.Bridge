@@ -291,7 +291,8 @@
                     if (chart.pivot)
                         delete dashboard.filters[chart.pivot];
                 }
-                dashboard.redraw(column, chart);
+                let redrawFilters = Array.isArray(column) ? column : dashboard.columns[column + "ID"] ? new Array(column + "ID") : new Array(column);
+                dashboard.redraw(redrawFilters, chart);
                 const filterEvent = new CustomEvent(dashboard.options.filteredEvent, { bubbles: dashboard.options.bubbleFilters, detail: dashboard.filters });
                 dashboard.container.dispatchEvent(filterEvent);
             });
