@@ -38,18 +38,8 @@ qbo3.Excel = {
 
                 if (duration == 0) {
                     var paginateElement = target.getElements('span[data-behavior=Paginate]')[0];
-                    if (paginateElement && paginateElement.attributes['data-paginate-options']) {
-                        var attributeValue = paginateElement.attributes['data-paginate-options'].value;
-                        if (attributeValue.length > 0) {
-                            recordCount = attributeValue.substring(
-                                attributeValue.indexOf('\'count\': \'') + 10
-                            ).substring(0, attributeValue.substring(
-                                attributeValue.indexOf('\'count\': \'') + 10
-                            ),
-                                attributeValue.indexOf('\'count\': \'') + 10
-                            ).indexOf('\'');
-                        };
-                    }
+                    if (paginateElement && paginateElement.attributes['data-paginate-options'])
+                        recordCount = JSON.decode(paginateElement.attributes['data-paginate-options'].value)?.count ?? recordCount;
                 }
             }
 
