@@ -357,7 +357,43 @@
 
             if (!chart.view || !chart.view.columns)
                 view.setColumns(viewColumns);
-            return google.visualization.data.group(view, [0], groupColumns);
+
+            if (this.options?.url?.toLowerCase().contains('?sortby=') || this.options?.url?.toLowerCase().contains('&sortby=')) {
+                const grouped = google.visualization.data.group(view, [0], groupColumns);
+
+                // compute original (first-seen) order of distinct keys from the filtered view
+                const dimIndex = view.getColumnIndex(chart.dimension);
+                const originalOrder = [];
+                for (let r = 0; r < view.getNumberOfRows(); r++) {
+                    const v = view.getValue(r, dimIndex);
+                    if (originalOrder.indexOf(v) === -1) originalOrder.push(v);
+                }
+
+                // map originalOrder to row indices in grouped (grouped column 0 contains the key)
+                const orderedGroupedRowIndices = [];
+                for (let k = 0; k < originalOrder.length; k++) {
+                    const key = originalOrder[k];
+                    for (let gr = 0; gr < grouped.getNumberOfRows(); gr++) {
+                        // treat null/empty labels same as chart.nullLabel if needed
+                        if (grouped.getValue(gr, 0) === key) {
+                            orderedGroupedRowIndices.push(gr);
+                            break;
+                        }
+                    }
+                }
+
+                // if some group keys did not appear (edge cases), append remaining grouped rows
+                for (let gr = 0; gr < grouped.getNumberOfRows(); gr++) {
+                    if (orderedGroupedRowIndices.indexOf(gr) === -1) orderedGroupedRowIndices.push(gr);
+                }
+
+                // return a DataView over grouped, with rows in preserved order
+                const orderedView = new google.visualization.DataView(grouped);
+                orderedView.setRows(orderedGroupedRowIndices);
+                return orderedView;
+            } else {
+                return google.visualization.data.group(view, [0], groupColumns);
+            }
         }
 
         async draw() {
