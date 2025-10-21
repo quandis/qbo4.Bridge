@@ -6,7 +6,7 @@ qbo3.Excel = {
         var self = this;
         self.renderStart = new Date();
 
-        if (typeof(method) == 'object' && !data) data = method;
+        if (typeof (method) == 'object' && !data) data = method;
 
         self.data = this.data ? Object.merge(this.data, data) : data;
         self.data = Object.fromEntries(Object.entries(self.data).filter(([k, v]) => k.length > 0));
@@ -51,6 +51,9 @@ qbo3.Excel = {
 
         self.popup(self.data.Popup || 'InvokeExcelResults', {
             save: function (data) {
+
+                popup = this;
+
                 self.Request = new Request.JSON({
                     url: excelUrl,
                     method: 'get',
@@ -77,6 +80,8 @@ qbo3.Excel = {
                             qbo3.alert(this.getHeader('X-Alert-Error'), { css: 'alert alert-error' });
                         if (this.getHeader('X-Alert-Info'))
                             qbo3.alert(this.getHeader('X-Alert-Info'), { css: 'alert alert-info' });
+
+                        popup.popupCancel();
                     },
                     onSuccess: function (json, text) {
                         self.fireEvent('response' + self.method);
